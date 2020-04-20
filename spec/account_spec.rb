@@ -6,5 +6,13 @@ describe Account do
     it "can store a balance on it" do
       expect(subject).to have_attributes(balance: 0)
     end
+
+  end
+
+  context '#deposit' do
+    it "can deposit money" do
+      subject.deposit(100)
+      expect(subject.balance).to eq(100)
+    end
   end
 end
