@@ -14,6 +14,12 @@ describe Account do
 
   end
 
+  context '#transactions' do
+    it "initializes with an empty list of transactions" do
+      expect(subject).to have_attributes(transactions: [])
+    end
+  end
+
   context '#deposit' do
     it "can deposit money" do
       subject.deposit(100)
