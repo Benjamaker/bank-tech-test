@@ -7,6 +7,11 @@ describe Account do
       expect(subject).to have_attributes(balance: 0)
     end
 
+    it "has a method to return the balance" do
+      subject.deposit(100)
+      expect(subject.check_balance).to eq(100)
+    end
+
   end
 
   context '#deposit' do
