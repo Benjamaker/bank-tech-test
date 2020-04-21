@@ -18,6 +18,14 @@ describe Account do
     it "initializes with an empty list of transactions" do
       expect(subject).to have_attributes(transactions: [])
     end
+
+    it "records a deposit" do
+      expect{subject.record_deposit(100)}.to change{subject.transactions.length}.by 1
+    end
+
+    it "records a withdrawal" do
+      expect{subject.record_deposit(100)}.to change{subject.transactions.length}.by 1
+    end
   end
 
   context '#deposit' do
