@@ -42,8 +42,6 @@ class Account
     end
   end
 
-  private
-
   def print_statement_header
     puts "date || credit || debit || balance"
   end

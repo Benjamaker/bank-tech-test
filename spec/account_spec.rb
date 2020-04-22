@@ -28,7 +28,7 @@ describe Account do
     end
   end
 
-  context "transaction times" do
+  context 'transaction times' do
     before do
       Timecop.freeze(Time.local(2020, 3, 17, 18, 0, 0))
     end
@@ -61,5 +61,20 @@ describe Account do
       subject.withdraw(50)
       expect(subject.balance).to eq(50)
     end
+  end
+
+  context '#print_statement' do
+    it "prints with the header" do
+      expect{subject.print_statement}.to output("date || credit || debit || balance\n").to_stdout
+    end
+
+    it "prints the statement in reverse chronological order" do
+      Timecop.freeze(Time.local(2020, 4, 20, 11, 0, 0))
+      subject.deposit(100)
+      Timecop.freeze(Time.local(2020, 4, 21, 13, 0, 0))
+      subject.withdraw(50)
+      expect{subject.print_statement}.to output("date || credit || debit || balance\n2020-04-21 13:00:00 +0100 || ---- || 50 || 50\n2020-04-20 11:00:00 +0100 || 100 || ---- || 100\n").to_stdout
+    end
+
   end
 end
