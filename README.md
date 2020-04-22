@@ -94,4 +94,4 @@ I came up with the following rough outline of attributes and methods for my `Acc
 
 ## App demo (IRB) ##
 
-![App Demo](/Users/isabelleben/Projects/techTests/bank/bank-app-CLI-demo.png)
+![App Demo](bank-app-CLI-demo.png)
