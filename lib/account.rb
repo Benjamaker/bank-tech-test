@@ -1,10 +1,14 @@
+require_relative "transaction_log"
+require_relative "statement"
+
 class Account
 
-  attr_reader :balance, :transactions
+  attr_reader :balance
 
-  def initialize
+  def initialize(transaction_log = TransactionLog.new, statement = Statement.new)
     @balance = 0
-    @transactions = []
+    @transaction_log = transaction_log
+    @statement = statement
   end
 
   def check_balance
@@ -13,33 +17,19 @@ class Account
 
   def deposit(money)
     @balance += money
-    record_deposit(money)
+    @transaction_log.record_deposit(money)
   end
 
   def withdraw(money)
     @balance -= money
-    record_withdrawal(money)
+    @transaction_log.record_withdrawal(money)
   end
 
-  def record_deposit(value)
-    @transactions << { Time.now => [@balance, "deposit", value] }
-  end
 
-  def record_withdrawal(value)
-    @transactions << { Time.now => [@balance, "withdrawal", value] }
-  end
 
   def print_statement
     print_statement_header
-    @transactions.reverse.each do |transaction|
-      transaction.each do |key, value|
-        if value.include? "deposit"
-          puts "#{key} || #{value.last} || ---- || #{value.first}"
-        elsif value.include? "withdrawal"
-          puts "#{key} || ---- || #{value.last} || #{value.first}"
-        end
-      end
-    end
+    @statement.print_statement
   end
 
   def print_statement_header
